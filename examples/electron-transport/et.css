@@ -1,0 +1,271 @@
+/* Electron transport chain: page, panel and the colour code of the figure.
+   Every colour is a token with a dark value and a light override. */
+
+.iso {
+  --et-e: #8ff3ff;
+  --et-e-core: #f2feff;
+  --et-h: #ff9a3d;
+  --et-h-core: #ffe2b8;
+  --et-o: #ff5f6d;
+  --et-atp: #c8ff6a;
+  --et-site: #ffffff;
+  --et-fes: #ffb547;
+  --et-heme: #ff5a5a;
+  --et-cu: #5ae0ff;
+  --et-fl: #ffe35a;
+  --et-q: #ffd84a;
+  --et-ims: #ff8a2a;
+  --et-matrix: #2aa9c9;
+  --et-panel: #101112;
+  --et-line: #2a2c30;
+  --et-btn: #17191c;
+  --et-btn-hover: #1f2226;
+  --et-tip: #0d0e10f2;
+}
+.iso[data-theme="light"] {
+  --et-e: #0095c8;
+  --et-e-core: #00445e;
+  --et-h: #e0610a;
+  --et-h-core: #7a2c00;
+  --et-o: #d6283a;
+  --et-atp: #4c9a00;
+  --et-site: #000000;
+  --et-fes: #c77800;
+  --et-heme: #c81e1e;
+  --et-cu: #0089b3;
+  --et-fl: #a88a00;
+  --et-q: #9c7a00;
+  --et-ims: #e86a10;
+  --et-matrix: #1b8fae;
+  --et-panel: #fbfbfa;
+  --et-line: #d8d8d4;
+  --et-btn: #ffffff;
+  --et-btn-hover: #f1f1ee;
+  --et-tip: #ffffffF5;
+}
+
+/* ── Page ─────────────────────────────────────────────────── */
+.et-head { margin: 0 0 18px; }
+.et-eyebrow { margin: 0 0 6px; font-family: var(--anatomy-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--anatomy-muted); }
+.et-head h1 { margin: 0; font-size: clamp(22px, 3.2vw, 30px); line-height: 1.15; font-weight: 600; letter-spacing: -.01em; color: var(--anatomy-strong); }
+
+/* ── Panel ────────────────────────────────────────────────── */
+.et-panel { display: grid; gap: 14px; padding: 16px; background: var(--et-panel); box-shadow: 0 0 0 1px var(--et-line); }
+.et-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.et-btn {
+  display: inline-flex; align-items: center; gap: 9px; padding: 10px 14px; border: 0; border-radius: 0; cursor: pointer;
+  background: var(--et-btn); color: var(--anatomy-strong); font: 500 13px/1.2 ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 0 0 1px var(--anatomy-mid); transition: background-color .2s var(--anatomy-ease), box-shadow .2s var(--anatomy-ease), transform .2s var(--anatomy-ease);
+}
+.et-btn:hover { background: var(--et-btn-hover); box-shadow: 0 0 0 1px var(--anatomy-hi); }
+.et-btn:active { transform: translateY(1px); }
+.et-btn:focus-visible { outline: 2px solid var(--et-e); outline-offset: 2px; }
+.et-btn[data-quiet] { color: var(--anatomy-text); box-shadow: 0 0 0 1px var(--anatomy-lo); margin-left: auto; }
+.et-btn-dot { width: 9px; height: 9px; flex: none; background: hsl(var(--h) 75% 58%); box-shadow: 0 0 8px hsl(var(--h) 90% 60% / .7); }
+.et-meters { display: grid; grid-template-columns: 1.5fr 1fr; gap: 10px; }
+.et-meter { display: grid; gap: 7px; align-content: start; padding: 12px 14px; box-shadow: 0 0 0 1px var(--et-line); }
+.et-k { font-family: var(--anatomy-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--anatomy-muted); }
+.et-v { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; color: var(--anatomy-strong); font-variant-numeric: tabular-nums; }
+.et-v > b { font: 600 34px/1 var(--anatomy-mono); letter-spacing: -.02em; }
+.et-meter[data-tone="h"] .et-v > b { color: var(--et-h); text-shadow: 0 0 calc(var(--glow, 0) * 18px) var(--et-h); }
+.et-meter[data-tone="atp"] .et-v > b { color: var(--et-atp); }
+.et-v small { font-family: var(--anatomy-mono); font-size: 12px; color: var(--anatomy-text); }
+.et-sub { margin-left: auto; font-family: var(--anatomy-mono); font-size: 11.5px; color: var(--anatomy-text); }
+.et-sub b, .et-foot b { color: var(--anatomy-strong); font-weight: 500; }
+.et-track { position: relative; display: block; height: 8px; background: var(--anatomy-faint); }
+.et-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--et-matrix), var(--et-h)); transition: width .25s linear; }
+.et-mark { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--anatomy-hi); }
+.et-foot { display: flex; justify-content: space-between; gap: 10px; font-family: var(--anatomy-mono); font-size: 11px; color: var(--anatomy-muted); }
+.et-log { margin: 0; min-height: 1.5em; font-family: var(--anatomy-mono); font-size: 12px; color: var(--anatomy-text); }
+@media (max-width: 720px) {
+  .et-meters { grid-template-columns: 1fr; }
+  .et-btn { flex: 1 1 100%; justify-content: center; }
+  .et-btn[data-quiet] { margin-left: 0; }
+  .et-sub { margin-left: 0; flex-basis: 100%; }
+}
+
+/* ── Stage and overlays ───────────────────────────────────── */
+.et .iso-figure { margin-top: 14px; }
+.et .iso-plate { overflow: hidden; }
+.et-stage { position: relative; outline: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.et-stage:focus-visible { box-shadow: 0 0 0 1px var(--et-e); }
+.et-zone {
+  position: absolute; transform: translateY(-50%); pointer-events: none; font-family: var(--anatomy-mono); font-size: 10px; line-height: 1.2;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--anatomy-muted); max-width: 9em;
+}
+.et-zone[data-zone="ims"] { color: color-mix(in srgb, var(--et-ims) 70%, var(--anatomy-text)); }
+.et-zone[data-zone="matrix"] { color: color-mix(in srgb, var(--et-matrix) 75%, var(--anatomy-text)); }
+.et-tip {
+  position: absolute; z-index: 3; width: max-content; max-width: min(330px, 80%); padding: 10px 12px; pointer-events: none;
+  background: var(--et-tip); box-shadow: 0 0 0 1px var(--anatomy-mid), 0 10px 30px #0006; backdrop-filter: blur(4px);
+  font-size: 12px; line-height: 1.5; color: var(--anatomy-text);
+}
+.et-tip h3 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 13px; color: var(--anatomy-strong); }
+.et-tip h3::before { content: ""; width: 9px; height: 9px; flex: none; background: hsl(var(--h, 0) var(--s, 0%) 58%); }
+.et-tip p { margin: 2px 0 6px; color: var(--anatomy-muted); font-size: 11.5px; }
+.et-tip ul { margin: 0; padding: 0; list-style: none; font-family: var(--anatomy-mono); font-size: 11px; }
+.et-tip li + li { margin-top: 2px; }
+
+/* ── Colour code: one hue per complex ─────────────────────── */
+[data-cx="I"] { --h: 218; --s: 62%; }
+[data-cx="II"] { --h: 142; --s: 46%; }
+[data-cx="III"] { --h: 272; --s: 46%; }
+[data-cx="IV"] { --h: 338; --s: 52%; }
+[data-cx="V"] { --h: 184; --s: 50%; }
+[data-cx="Q"] { --h: 48; --s: 90%; }
+[data-cx="c"] { --h: 4; --s: 66%; }
+[data-cx="mim"], [data-cx="omm"], [data-cx="vdac"] { --h: 214; --s: 14%; }
+
+.et-cx, .et-tinted {
+  --anatomy-paper: hsl(var(--h) var(--s) 9%);
+  --anatomy-shade-0: hsl(var(--h) var(--s) 12%);
+  --anatomy-shade-1: hsl(var(--h) var(--s) 14.5%);
+  --anatomy-shade-2: hsl(var(--h) var(--s) 17.5%);
+  --anatomy-shade-3: hsl(var(--h) var(--s) 21%);
+  --anatomy-top: hsl(var(--h) var(--s) 25%);
+  --anatomy-face: hsl(var(--h) var(--s) 22%);
+  --anatomy-lit-top: hsl(var(--h) var(--s) 34%);
+  --anatomy-lit-shade: hsl(var(--h) var(--s) 24%);
+  --anatomy-hi: hsl(var(--h) 85% 76%);
+  --anatomy-mid: hsl(var(--h) 52% 52%);
+  --anatomy-lo: hsl(var(--h) 38% 34%);
+  --anatomy-faint: hsl(var(--h) 32% 26%);
+  --anatomy-dot: hsl(var(--h) 80% 80%);
+}
+.iso[data-theme="light"] .et-cx, .iso[data-theme="light"] .et-tinted {
+  --anatomy-paper: hsl(var(--h) var(--s) 97%);
+  --anatomy-shade-0: hsl(var(--h) var(--s) 76%);
+  --anatomy-shade-1: hsl(var(--h) var(--s) 81%);
+  --anatomy-shade-2: hsl(var(--h) var(--s) 86%);
+  --anatomy-shade-3: hsl(var(--h) var(--s) 90%);
+  --anatomy-top: hsl(var(--h) var(--s) 95%);
+  --anatomy-face: hsl(var(--h) var(--s) 97%);
+  --anatomy-lit-top: hsl(var(--h) var(--s) 98%);
+  --anatomy-lit-shade: hsl(var(--h) var(--s) 90%);
+  --anatomy-hi: hsl(var(--h) 70% 24%);
+  --anatomy-mid: hsl(var(--h) 40% 42%);
+  --anatomy-lo: hsl(var(--h) 30% 62%);
+  --anatomy-faint: hsl(var(--h) 26% 78%);
+  --anatomy-dot: hsl(var(--h) 60% 30%);
+}
+.et-cx { transition: filter .25s var(--anatomy-ease); }
+.et-cx[data-hot] { filter: brightness(1.28) saturate(1.15); }
+.iso[data-theme="light"] .et-cx[data-hot] { filter: brightness(.96) saturate(1.3); }
+.et-cx[data-hot] .iso-edge { stroke: var(--anatomy-hi); }
+
+/* ── Membrane, case, walls ────────────────────────────────── */
+.et-mem {
+  --h: 214; --s: 14%;
+  --anatomy-shade-0: hsl(var(--h) var(--s) 12%);
+  --anatomy-shade-1: hsl(var(--h) var(--s) 14%);
+  --anatomy-shade-2: hsl(var(--h) var(--s) 16%);
+  --anatomy-shade-3: hsl(var(--h) var(--s) 18%);
+  --anatomy-top: hsl(var(--h) var(--s) 19%);
+  --anatomy-mid: hsl(var(--h) 16% 46%);
+  --anatomy-lo: hsl(var(--h) 14% 32%);
+  --anatomy-faint: hsl(var(--h) 14% 30%);
+}
+.iso[data-theme="light"] .et-mem {
+  --anatomy-shade-0: hsl(var(--h) var(--s) 80%);
+  --anatomy-shade-1: hsl(var(--h) var(--s) 84%);
+  --anatomy-shade-2: hsl(var(--h) var(--s) 88%);
+  --anatomy-shade-3: hsl(var(--h) var(--s) 91%);
+  --anatomy-top: hsl(var(--h) var(--s) 93%);
+  --anatomy-mid: hsl(var(--h) 12% 52%);
+  --anatomy-lo: hsl(var(--h) 12% 66%);
+  --anatomy-faint: hsl(var(--h) 12% 76%);
+}
+.et-band[data-band="head"] { fill: hsl(214 18% 23%); }
+.et-band[data-band="core"] { fill: hsl(36 22% 13%); }
+.iso[data-theme="light"] .et-band[data-band="head"] { fill: hsl(214 22% 86%); }
+.iso[data-theme="light"] .et-band[data-band="core"] { fill: hsl(38 40% 92%); }
+.et-lipid-head { fill: hsl(205 30% 58%); stroke: hsl(205 30% 30%); stroke-width: .35; }
+.iso[data-theme="light"] .et-lipid-head { fill: hsl(205 40% 60%); stroke: hsl(205 30% 40%); }
+.et-tail { stroke: hsl(38 26% 38%) !important; stroke-width: .45 !important; }
+.iso[data-theme="light"] .et-tail { stroke: hsl(38 30% 62%) !important; }
+.et-porin { --h: 214; --s: 18%; }
+.et-wall { --h: 205; --s: 10%;
+  --anatomy-shade-0: hsl(var(--h) var(--s) 9%); --anatomy-shade-1: hsl(var(--h) var(--s) 10%);
+  --anatomy-shade-2: hsl(var(--h) var(--s) 11%); --anatomy-shade-3: hsl(var(--h) var(--s) 12%);
+  --anatomy-top: hsl(var(--h) var(--s) 15%); }
+.iso[data-theme="light"] .et-wall { --anatomy-shade-0: #ececea; --anatomy-shade-1: #efefed; --anatomy-shade-2: #f2f2f0; --anatomy-shade-3: #f5f5f3; --anatomy-top: #f7f7f5; }
+.et-tint { stroke: none; pointer-events: none; }
+.et-tint[data-zone="matrix"] { fill: var(--et-matrix); opacity: .1; }
+.et-tint[data-zone="ims"] { fill: var(--et-ims); }
+.iso:not([data-theme="light"]) .et-tint[data-zone="ims"] { mix-blend-mode: screen; }
+.et-charge .iso-line { stroke: var(--et-h) !important; stroke-width: .9 !important; }
+.et-charge[data-sign="minus"] .iso-line { stroke: var(--et-matrix) !important; }
+
+/* Pockets and channels */
+.et-slot { fill: hsl(var(--h) var(--s) 7%); stroke: hsl(var(--h) 50% 40%); stroke-width: .5; }
+.iso[data-theme="light"] .et-slot { fill: hsl(var(--h) var(--s) 80%); stroke: hsl(var(--h) 40% 45%); }
+.et-pocket { fill: hsl(var(--h) var(--s) 6%); stroke: hsl(var(--h) 50% 38%); stroke-width: .5; }
+.iso[data-theme="light"] .et-pocket { fill: hsl(var(--h) var(--s) 78%); }
+.et-wire { stroke-dasharray: .01 2.2; stroke-width: .9 !important; }
+
+/* ── Redox centres ────────────────────────────────────────── */
+.et-site { --c: var(--et-fes); }
+.et-site[data-kind="heme"] { --c: var(--et-heme); }
+.et-site[data-kind="cu"] { --c: var(--et-cu); }
+.et-site[data-kind="fl"] { --c: var(--et-fl); }
+.et-site[data-kind="q"] { --c: var(--et-q); }
+.et-site-mark { fill: color-mix(in srgb, var(--c) 55%, var(--anatomy-paper)); stroke: var(--c); stroke-width: .5; transition: fill .4s; }
+.et-site[data-kind="q"] .et-site-mark { fill: none; stroke-dasharray: 1.4 1.2; }
+.et-site-core { fill: var(--anatomy-paper); }
+.et-site-glow { fill: var(--c); stroke: var(--c); stroke-width: 5; stroke-linejoin: round; opacity: 0; filter: blur(2.2px); transition: opacity .6s var(--anatomy-ease); }
+.et-site[data-on] .et-site-glow { opacity: .85; transition-duration: .08s; }
+.et-site[data-on] .et-site-mark { fill: var(--c); }
+.iso[data-theme="light"] .et-site-glow { filter: blur(1.6px); }
+.iso[data-theme="light"] .et-site[data-on] .et-site-glow { opacity: .45; }
+
+/* ── ATP synthase β states ────────────────────────────────── */
+.et-beta-site { fill: none; stroke: var(--et-atp); stroke-width: .6; opacity: .35; transition: opacity .5s, stroke-width .5s; }
+.et-lobe[data-state="L"] .et-beta-site { opacity: .6; }
+.et-lobe[data-state="T"] .et-beta-site { opacity: 1; stroke-width: 1.1; }
+.et-lobe[data-beta] { --anatomy-top: hsl(var(--h) calc(var(--s) + 10%) 29%); }
+.et-lobe[data-alpha] { --anatomy-top: hsl(var(--h) calc(var(--s) - 18%) 23%); --anatomy-shade-3: hsl(var(--h) calc(var(--s) - 18%) 19%); --anatomy-shade-2: hsl(var(--h) calc(var(--s) - 18%) 16%); }
+.iso[data-theme="light"] .et-lobe[data-beta] { --anatomy-top: hsl(var(--h) var(--s) 90%); }
+.iso[data-theme="light"] .et-lobe[data-alpha] { --anatomy-top: hsl(var(--h) 12% 96%); --anatomy-shade-3: hsl(var(--h) 12% 90%); --anatomy-shade-2: hsl(var(--h) 12% 86%); }
+.et-lobe[data-flash] { filter: brightness(1.5); }
+.et-c0 { --anatomy-top: hsl(var(--h) 70% 42%); --anatomy-shade-3: hsl(var(--h) 60% 30%); --anatomy-shade-2: hsl(var(--h) 60% 26%); --anatomy-shade-1: hsl(var(--h) 60% 22%); --anatomy-shade-0: hsl(var(--h) 60% 19%); }
+.iso[data-theme="light"] .et-c0 { --anatomy-top: hsl(var(--h) 70% 72%); --anatomy-shade-3: hsl(var(--h) 60% 62%); --anatomy-shade-2: hsl(var(--h) 60% 58%); --anatomy-shade-1: hsl(var(--h) 60% 54%); --anatomy-shade-0: hsl(var(--h) 60% 50%); }
+
+/* ── Live sprites ─────────────────────────────────────────── */
+.et-fx { pointer-events: none; }
+.et-e .et-core { fill: var(--et-e-core); }
+.et-h .et-core { fill: var(--et-h); }
+.et-h .et-plus { stroke: var(--et-h-core); stroke-width: .7; stroke-linecap: round; fill: none; }
+.iso[data-theme="light"] .et-h .et-plus { stroke: #fff; }
+.et-mol text { font-family: var(--anatomy-mono); font-size: 6.4px; letter-spacing: .03em; fill: var(--anatomy-text); paint-order: stroke; stroke: var(--anatomy-paper); stroke-width: 2px; stroke-linejoin: round; }
+.et-mol .et-ring { fill: hsl(var(--h) 60% 22%); stroke: hsl(var(--h) 80% 65%); stroke-width: .6; }
+.et-mol .et-bond { stroke: hsl(var(--h) 60% 60%); stroke-width: .7; fill: none; }
+.et-mol .et-bead { fill: hsl(var(--h) 70% 55%); stroke: hsl(var(--h) 80% 75%); stroke-width: .4; }
+.iso[data-theme="light"] .et-mol .et-ring { fill: hsl(var(--h) 60% 90%); stroke: hsl(var(--h) 60% 35%); }
+.iso[data-theme="light"] .et-mol .et-bond { stroke: hsl(var(--h) 50% 40%); }
+.iso[data-theme="light"] .et-mol .et-bead { fill: hsl(var(--h) 60% 50%); stroke: hsl(var(--h) 60% 30%); }
+.et-mol[data-kind="nadh"] { --h: 48; }
+.et-mol[data-kind="nad"] { --h: 40; opacity: .75; }
+.et-mol[data-kind="nadh"] .et-ring:first-of-type { fill: hsl(48 90% 55%); }
+.et-mol[data-kind="succ"], .et-mol[data-kind="fum"] { --h: 142; }
+.et-mol[data-kind="o"], .et-mol[data-kind="h2o"] { --h: 355; }
+.et-mol[data-kind="atp"] { --h: 88; }
+.et-mol[data-kind="adp"] { --h: 70; }
+.et-mol .et-oxy { fill: var(--et-o); stroke: color-mix(in srgb, var(--et-o) 60%, #fff); stroke-width: .5; }
+.et-mol .et-hyd { fill: #f4f6fa; stroke: #9aa3b2; stroke-width: .4; }
+.et-q, .et-cytc { cursor: help; }
+.et-q[data-red] .iso-solid { --anatomy-top: hsl(48 95% 62%); --anatomy-shade-3: hsl(48 90% 46%); --anatomy-shade-2: hsl(48 90% 40%); --anatomy-shade-1: hsl(48 90% 34%); --anatomy-shade-0: hsl(48 90% 30%); }
+.iso[data-theme="light"] .et-q[data-red] .iso-solid { --anatomy-top: hsl(48 95% 70%); --anatomy-shade-3: hsl(48 90% 58%); }
+.et-q[data-red] .et-qglow, .et-cytc[data-red] .et-qglow { opacity: .9; }
+.et-qglow { opacity: 0; transition: opacity .4s; pointer-events: none; }
+.et-cytc[data-red] .et-site-glow { opacity: .85; }
+.et-cytc[data-red] .et-site-mark { fill: var(--et-heme); }
+
+@media (prefers-reduced-motion: reduce) {
+  .et-site-glow, .et-site-mark, .et-fill, .et-cx { transition: none; }
+}
+
+/* Phones: the zone names would sit on the drawing, so they go; the figure grows to fill the card. */
+@media (max-width: 720px) {
+  .et-zone { display: none; }
+  .et-stage .iso-svg { width: 122%; margin-left: -11%; }
+}

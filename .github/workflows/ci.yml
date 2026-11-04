@@ -52,6 +52,11 @@ jobs:
           node examples/ripple-tank/build.mjs
           node examples/ripple-tank/build.mjs --light
 
+      - name: Electron transport
+        run: |
+          node examples/electron-transport/build.mjs
+          node examples/electron-transport/build.mjs --light
+
       - name: Turning dial
         run: |
           node examples/turning-dial/build.mjs
